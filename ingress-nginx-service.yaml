@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+spec:
+  type: NodePort  # Change from LoadBalancer to NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 32500  # Optional: you can specify or let Kubernetes assign one
+    - name: https
+      port: 443
+      targetPort: 443
+      nodePort: 30487  # Optional: you can specify or let Kubernetes assign one
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+

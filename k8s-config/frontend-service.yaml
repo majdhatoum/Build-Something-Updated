@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: frontend-service
-        image: majdhatoum/frontend
+        image: majdhatoum/frontend:latest
         ports:
-        - containerPort: 80
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -25,8 +25,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 80         # Service port
-    targetPort: 80   # Container port
-    nodePort: 30003   # Specify a nodePort or let Kubernetes assign one
+    - port: 80
+      targetPort: 3000
+      nodePort: 30003
   selector:
     app: frontend-service

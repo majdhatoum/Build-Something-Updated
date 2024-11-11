@@ -17,16 +17,18 @@ spec:
         image: majdhatoum/user-service:latest
         ports:
         - containerPort: 5000
+        env:
+        - name: MONGODB_URI
+          value: mongodb://mongodb:27017/userdb
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: user-service
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
-  - port: 5000         # Service port
-    targetPort: 5000   # Container port
-    nodePort: 30001    # Specify a nodePort or let Kubernetes assign one
+    - port: 5000
+      targetPort: 5000
   selector:
     app: user-service
